@@ -11,3 +11,8 @@
 
 # 🔧 Technologies
  - 🦀 Rust
+
+---
+
+# 🧑 Author
+ - **Ruanito**
