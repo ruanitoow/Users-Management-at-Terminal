@@ -16,3 +16,4 @@
 
 # 🧑 Author
  - **Ruanito**
+   - Discord: ruanito_
