@@ -4,8 +4,8 @@
 ###
 
 # 📌 Change-Log
-## V1.0
- - Create, Find, List and Delete User(s) system.
+ ## V1.0
+  - Create, Find, List and Delete User(s) system.
 
 # 🔧 Technologies
  - 🦀 Rust
