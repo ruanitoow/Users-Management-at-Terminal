@@ -7,7 +7,7 @@
 
 ## 🚀 Features
 - ➕ Create users  
-- 🔍 Search users by name or ID  
+- 🔍 Search users by ID  
 - 📋 List all registered users  
 - 🗑️ Delete users  
 - 🖥️ Fully terminal-based interface  
@@ -29,7 +29,6 @@
 ## 🎯 Project Goals
 - Practice Rust fundamentals
 - Learn data structures and control flow
-- Improve confidence with terminal applications
 - Serve as a foundation for future Rust projects
 
 ---
