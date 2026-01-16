@@ -1,9 +1,10 @@
-use std::{collections::HashMap};
-use crate::utils::get_input;
+use std::fs::{self};
+use std::time::{SystemTime, UNIX_EPOCH};
+use crate::utils::{get_input, read_json_file};
 use crate::structs::user::User;
 use crate::enums::returnstatus::ReturnStatus;
 
-pub fn create_user(users_hash_map: &mut HashMap<u32, User>) -> ReturnStatus {
+pub fn create_user() -> ReturnStatus {
     let username: String;
     let age: i8;
 
@@ -29,13 +30,22 @@ pub fn create_user(users_hash_map: &mut HashMap<u32, User>) -> ReturnStatus {
     }
 
     let new_user = User {
-        username: username,
+        username: username.trim_end().to_string(),
         age: age,
-        id: rand::random_range(1000000000..=2000000000)
+        id: SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_millis() as u32,
     };
 
+    let mut sla = read_json_file().unwrap();
+
+    println!("{:#?}", sla);
+    
+    sla.push(new_user.clone());
+    fs::write("Users.json", serde_json::to_string_pretty(&sla).unwrap().as_bytes()).unwrap();
+    
     println!("Created new user successfully!\n\n");
-    users_hash_map.insert(new_user.id, new_user.clone());
 
     ReturnStatus::SuccessUser(new_user)
 }

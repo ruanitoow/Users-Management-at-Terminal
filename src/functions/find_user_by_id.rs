@@ -1,9 +1,9 @@
-use std::{collections::HashMap};
-use crate::utils::get_input;
+use crate::utils::{get_input, read_json_file};
 use crate::structs::user::User;
 use crate::enums::returnstatus::ReturnStatus;
 
-pub fn find_user_by_id(users_hash_map: &mut HashMap<u32, User>) -> ReturnStatus {
+pub fn find_user_by_id() -> ReturnStatus {
+    let users_file: Vec<User> = read_json_file().unwrap();
     let user_id: u32;
 
     println!("Type the user id you want to find:");
@@ -15,15 +15,21 @@ pub fn find_user_by_id(users_hash_map: &mut HashMap<u32, User>) -> ReturnStatus 
         }
     };
 
-    let filtered_user = users_hash_map.get(&user_id);
+    let filtered_user: User;
+    let return_variable: ReturnStatus;
 
-    let return_variable: ReturnStatus = match filtered_user {
-        Some(user) => {
-            println!("User found: {:?}", &user);
+    return_variable = match users_file.into_iter().filter(|user| user.id == user_id).collect::<Vec<User>>().into_iter().next() {
+        Some(u) => {
+            filtered_user = u;
+
+            println!("User found: {:#?}", &filtered_user);
             print!("\n");
-            ReturnStatus::SuccessUser(user.clone())
+            ReturnStatus::SuccessUser(filtered_user)
         },
-        None => ReturnStatus::Error
+        None => {
+            println!("User not found.\n");
+            ReturnStatus::Error
+        },
     };
 
     return_variable

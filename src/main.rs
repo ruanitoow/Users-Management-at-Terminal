@@ -3,13 +3,17 @@ pub mod structs;
 pub mod utils;
 pub mod enums;
 
-use std::{collections::HashMap};
+use std::{fs::{OpenOptions}, io::{self}};
 use crate::{
-    enums::returnstatus::ReturnStatus, functions::{create_user::create_user, delete_user::delete_user, find_user_by_id::find_user_by_id, list_all_users::list_all_users}, structs::user::User, utils::get_input
+    functions::{create_user::create_user, delete_user::delete_user, find_user_by_id::find_user_by_id, list_all_users::list_all_users}, utils::{get_input, read_json_file}
 };
 
-fn main() {
-    let mut users: HashMap<u32, User> = HashMap::new();
+fn main() -> io::Result<()> {
+    OpenOptions::new()
+        .create(true)
+        .read(true)
+        .write(true)
+        .open("Users.json")?;
 
     loop {
         println!("Hello, this is the User Management Service. Please select an option below: ");
@@ -29,31 +33,25 @@ fn main() {
             },
         };
         
-        let return_status: ReturnStatus;
         match number_choice {
             0 => break,
             1 => {
-                return_status = create_user(&mut users);
+                create_user();
             },
             2 => {
-                return_status = find_user_by_id(&mut users);
+                find_user_by_id();
             },
             3 => {
-                return_status = list_all_users(&mut users);
+                list_all_users();
             },
             4 => {
-                return_status = delete_user(&mut users);
+                delete_user();
             },
             _ => continue
         }
-
-        let _return_status: User = match return_status {
-            ReturnStatus::SuccessUser(user) => user,
-            ReturnStatus::Success => continue,
-            ReturnStatus::Error => continue,
-            ReturnStatus::Null => continue
-        };
     }
 
-    println!("All created users:\n{:?}", users);
+    println!("All created users:\n{:#?}", read_json_file().unwrap());
+
+    Ok(())
 }
