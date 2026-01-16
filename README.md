@@ -15,7 +15,7 @@
 ---
 
 ## 📌 Change Log
-### 🟢 v1.0
+### 🟢 v1.1
 - Users informations now are saved in a local json file.
 - Enhanced error handling.
 - Removed unnecessary imports.
