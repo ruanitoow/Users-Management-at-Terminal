@@ -16,6 +16,11 @@
 
 ## 📌 Change Log
 ### 🟢 v1.0
+- Users informations now are saved in a local json file.
+- Enhanced error handling.
+- Removed unnecessary imports.
+
+### 🟢 v1.0
 - Initial release
 - Create, Find, List, and Delete user system
 
